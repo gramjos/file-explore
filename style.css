@@ -263,3 +263,42 @@ a:hover { text-decoration: underline; }
 	.sidebar { width: 85%; min-width: 85%; }
 	.content-body { padding: 16px; }
 }
+
+/* ===== Home Page Layout (route-driven) ===== */
+.home-page {
+	justify-content: center;
+}
+
+.home-page .content {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.home-hero {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 80vh;
+	text-align: center;
+}
+
+.home-hero h1 {
+	font-size: 2.5rem;
+	margin-bottom: 1rem;
+}
+
+.home-hero a {
+	display: inline-block;
+	margin-top: 1rem;
+	padding: 12px 24px;
+	background: var(--bg-secondary);
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	transition: background 0.2s;
+}
+
+.home-hero a:hover {
+	background: var(--hover);
+	text-decoration: none;
+}
