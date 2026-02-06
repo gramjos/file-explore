@@ -8,18 +8,18 @@ async function init() {
 
 	try {
 		// Load manifest
-		const response = await fetch('/manifest.json')
+		const response = await fetch('/m.json')
 		if (!response.ok) throw new Error(`Failed to load manifest: ${response.status}`)
 		const manifest = await response.json()
 		
 		// Initialize router
 		const router = new Router()
 		router.manifest = manifest
-		router.buildRoutes(manifest.root)
+		router.buildRoutes(manifest)
 		
 		// Build file tree
 		const fileTree = document.getElementById('file-tree')
-		fileTree.innerHTML = buildFileTree(manifest.root, router)
+		fileTree.innerHTML = buildFileTree(manifest, router)
 		
 		// Setup mobile menu
 		const closeMenu = setupMobileMenu()

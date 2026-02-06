@@ -32,9 +32,15 @@ export class Router {
 		window.addEventListener('popstate', () => this.handleRoute())
 	}
 	
-	// Build routes from manifest (prefixed under /notes)
-	buildRoutes(items, parentPath = '') {
-		items.forEach(item => {
+	// Build routes from flat manifest structure
+	buildRoutes(manifest) {
+		const items = manifest.items;
+		
+		// Recursive helper to traverse by ID
+		const traverse = (id, parentPath = '') => {
+			const item = items[id];
+			if (!item) return;
+
 			const subroute = this.pathToSubRoute(item.content_path)
 			const route = '/notes' + subroute
 			
@@ -53,10 +59,16 @@ export class Router {
 				contentPath: item.content_path
 			})
 			
+			// Recurse through children IDs
 			if (item.children && item.children.length > 0) {
-				this.buildRoutes(item.children, route)
+				item.children.forEach(childId => traverse(childId, route))
 			}
-		})
+		}
+
+		// Start traversal from the rootId
+		if (manifest.rootId) {
+			traverse(manifest.rootId)
+		}
 	}
 	
 	// Convert content path to sub-route (e.g., /nature/README.html -> /nature)

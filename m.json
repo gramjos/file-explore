@@ -1,0 +1,72 @@
+{
+  "rootId": "root-dir",
+  "items": {
+    "root-dir": {
+      "id": "root-dir",
+      "type": "directory",
+      "title": "Digi Garden",
+      "slug": "root",
+      "content_path": "/readme.html",
+      "children": ["about-file", "homie-file", "physics-dir", "nature-dir"]
+    },
+    "about-file": {
+      "id": "about-file",
+      "type": "file",
+      "title": "About",
+      "slug": "about",
+      "content_path": "/about.html"
+    },
+    "homie-file": {
+      "id": "homie-file",
+      "type": "file",
+      "title": "Homie",
+      "slug": "homie",
+      "content_path": "/homie.html"
+    },
+    "physics-dir": {
+      "id": "physics-dir",
+      "type": "directory",
+      "title": "Physics",
+      "slug": "physics",
+      "content_path": "/physics/README.html",
+      "children": ["golden-file"]
+    },
+    "golden-file": {
+      "id": "golden-file",
+      "type": "file",
+      "title": "Golden File",
+      "slug": "physics/golden_file",
+      "content_path": "/physics/golden_file.html"
+    },
+    "nature-dir": {
+      "id": "nature-dir",
+      "type": "directory",
+      "title": "Nature",
+      "slug": "nature",
+      "content_path": "/nature/README.html",
+      "children": ["desert-file", "tundra-dir"]
+    },
+    "desert-file": {
+      "id": "desert-file",
+      "type": "file",
+      "title": "Desert",
+      "slug": "nature/desert",
+      "content_path": "/nature/desert.html"
+    },
+    "tundra-dir": {
+      "id": "tundra-dir",
+      "type": "directory",
+      "title": "Tundra",
+      "slug": "nature/tundra",
+      "content_path": "/nature/tundra/README.html",
+      "children": ["arctic-file"]
+    },
+    "arctic-file": {
+      "id": "arctic-file",
+      "type": "file",
+      "title": "Arctic",
+      "slug": "nature/tundra/arctic",
+      "content_path": "/nature/tundra/arctic.html"
+    }
+  }
+}
