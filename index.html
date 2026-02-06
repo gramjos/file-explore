@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Doc.</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="app">
+		<!-- Mobile menu toggle -->
+		<button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+			<span></span><span></span><span></span>
+		</button>
+
+		<!-- Sidebar file explorer -->
+		<aside id="sidebar" class="sidebar">
+			<div class="sidebar-header">
+				<h2>📂 Explorer</h2>
+			</div>
+			<nav id="file-tree" class="file-tree"></nav>
+		</aside>
+
+		<!-- Main content area -->
+		<main id="content-display" class="content">
+			<div class="breadcrumb" id="breadcrumb"></div>
+			<article class="content-body" id="content-body">
+				<p>Select a file from the explorer.</p>
+			</article>
+		</main>
+
+		<!-- Overlay for mobile -->
+		<div class="overlay" id="overlay"></div>
+	</div>
+
+	<script src="app.js" defer></script>
+</body>
+</html>
+
