@@ -32,10 +32,62 @@ html, body {
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+/* ===== Top Navigation Bar ===== */
+.top-nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 48px;
+	padding: 0 20px;
+	background: var(--bg-secondary);
+	border-bottom: 1px solid var(--border);
+	position: sticky;
+	top: 0;
+	z-index: 300;
+	flex-shrink: 0;
+}
+
+.top-nav-brand a {
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--text-primary);
+	letter-spacing: 0.5px;
+}
+
+.top-nav-brand a:hover {
+	text-decoration: none;
+	color: var(--accent);
+}
+
+.top-nav-links {
+	display: flex;
+	gap: 4px;
+}
+
+.nav-link {
+	padding: 6px 14px;
+	border-radius: 6px;
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--text-secondary);
+	transition: background 0.15s, color 0.15s;
+}
+
+.nav-link:hover {
+	background: var(--hover);
+	color: var(--text-primary);
+	text-decoration: none;
+}
+
+.nav-link.active {
+	background: var(--active);
+	color: var(--text-primary);
+}
+
 /* ===== App Layout ===== */
 .app {
 	display: flex;
-	height: 100vh;
+	height: calc(100vh - 48px);
 	overflow: hidden;
 }
 
@@ -245,9 +297,9 @@ a:hover { text-decoration: underline; }
 	
 	.sidebar {
 		position: fixed;
-		top: 0;
+		top: 48px;
 		left: 0;
-		height: 100%;
+		height: calc(100% - 48px);
 		z-index: 100;
 		transform: translateX(-100%);
 	}
@@ -257,6 +309,15 @@ a:hover { text-decoration: underline; }
 	.content { padding-top: 50px; }
 	
 	.breadcrumb { padding-left: 60px; }
+	
+	.top-nav {
+		padding: 0 12px;
+	}
+	
+	.nav-link {
+		padding: 6px 10px;
+		font-size: 12px;
+	}
 }
 
 @media (max-width: 480px) {
@@ -279,7 +340,7 @@ a:hover { text-decoration: underline; }
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	min-height: 80vh;
+	min-height: calc(80vh - 48px);
 	text-align: center;
 }
 

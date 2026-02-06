@@ -13,6 +13,12 @@ export class Router {
 				sidebar: false,
 				render: () => this.renderHome()
 			},
+			about: {
+				path: '/about',
+				title: 'About',
+				sidebar: false,
+				render: () => this.renderAbout()
+			},
 			notes: {
 				path: '/notes',
 				title: 'Notes',
@@ -88,6 +94,7 @@ export class Router {
 	// Resolve which named route is active
 	resolveNamedRoute(path) {
 		if (path === '/') return 'home'
+		if (path === '/about') return 'about'
 		if (path === '/notes' || path.startsWith('/notes/') || path.startsWith('/notes?')) return 'notes'
 		return null
 	}
@@ -99,10 +106,17 @@ export class Router {
 		
 		// Apply layout for the named route
 		this.applyLayout(namedRouteName)
+		this.updateTopNav(namedRouteName)
 		
 		if (namedRouteName === 'home') {
 			this.namedRoutes.home.render()
 			document.title = 'Home - Doc.'
+			return
+		}
+		
+		if (namedRouteName === 'about') {
+			this.namedRoutes.about.render()
+			document.title = 'About - Doc.'
 			return
 		}
 		
@@ -167,6 +181,14 @@ export class Router {
 		this.currentNamedRoute = namedRouteName
 	}
 	
+	// Update active state in top nav
+	updateTopNav(namedRouteName) {
+		document.querySelectorAll('.nav-link').forEach(link => {
+			const nav = link.dataset.nav
+			link.classList.toggle('active', nav === namedRouteName)
+		})
+	}
+	
 	// Render home page
 	renderHome() {
 		const contentBody = document.getElementById('content-body')
@@ -174,7 +196,38 @@ export class Router {
 			<div class="home-hero">
 				<h1>Welcome Home</h1>
 				<p>This is the home page of Doc.</p>
-				<p><a href="/notes" data-link>📂 Browse Notes</a></p>
+			</div>
+		`
+	}
+	
+	// Render about page
+	renderAbout() {
+		const contentBody = document.getElementById('content-body')
+		contentBody.innerHTML = `
+			<div class="home-hero">
+				<h1>About</h1>
+				<p>Doc. is a lightweight, file-explorer-style documentation viewer built with vanilla HTML, CSS, and JavaScript — no frameworks, no build tools.</p>
+				
+				<h2>Features</h2>
+				<ul>
+					<li><strong>SPA Routing</strong> — History API-based navigation with clean URLs</li>
+					<li><strong>File Tree Sidebar</strong> — Expandable folder/file explorer for browsing notes</li>
+					<li><strong>Mobile Friendly</strong> — Responsive layout with slide-out menu</li>
+					<li><strong>Manifest Driven</strong> — Content structure defined in a single JSON file</li>
+					<li><strong>Static Hosting</strong> — Deploys to Cloudflare Pages with zero config</li>
+				</ul>
+				
+				<h2>Tech Stack</h2>
+				<ul>
+					<li>HTML5 &amp; CSS3</li>
+					<li>Vanilla JavaScript (ES Modules)</li>
+					<li>Cloudflare Pages</li>
+				</ul>
+				
+				<h2>How It Works</h2>
+				<p>Content is stored as plain HTML files in the <code>content-store/</code> directory. A <code>manifest.json</code> file describes the folder structure, which the app reads at startup to build the sidebar tree and register routes.</p>
+				<p>When you click a link, the SPA router intercepts it, updates the URL via the History API, and fetches the corresponding HTML fragment — no full page reloads.</p>
+				
 			</div>
 		`
 	}
