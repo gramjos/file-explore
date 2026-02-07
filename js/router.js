@@ -179,15 +179,20 @@ export class Router {
 		if (showSidebar) {
 			app.classList.remove('home-page')
 			sidebar.style.display = ''
-			menuToggle.style.display = ''
+			menuToggle.classList.remove('hidden')
 			overlay.style.display = ''
 			breadcrumb.style.display = ''
+			document.getElementById('top-nav').classList.remove('no-sidebar')
 		} else {
 			app.classList.add('home-page')
 			sidebar.style.display = 'none'
-			menuToggle.style.display = 'none'
+			menuToggle.classList.add('hidden')
+			menuToggle.classList.remove('active')
+			sidebar.classList.remove('open')
+			overlay.classList.remove('active')
 			overlay.style.display = 'none'
 			breadcrumb.style.display = 'none'
+			document.getElementById('top-nav').classList.add('no-sidebar')
 		}
 		
 		this.currentNamedRoute = namedRouteName
@@ -251,7 +256,21 @@ export class Router {
 		try {
 			const response = await fetch(`/content-store${routeData.contentPath}`)
 			if (!response.ok) throw new Error('Not found')
-			contentBody.innerHTML = await response.text()
+			const html = await response.text()
+			contentBody.innerHTML = html
+			
+			// Rewrite relative asset paths (images, videos, etc.)
+			// so they resolve against the content file's directory
+			const contentDir = routeData.contentPath.substring(0, routeData.contentPath.lastIndexOf('/'))
+			const baseUrl = `/content-store${contentDir}/`
+			contentBody.querySelectorAll('img, video, audio, source').forEach(el => {
+				for (const attr of ['src', 'poster']) {
+					const val = el.getAttribute(attr)
+					if (val && !val.startsWith('/') && !val.startsWith('http')) {
+						el.setAttribute(attr, baseUrl + val)
+					}
+				}
+			})
 		} catch (error) {
 			contentBody.innerHTML = `<p>Error loading: ${routeData.contentPath}</p>`
 		}

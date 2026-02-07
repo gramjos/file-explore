@@ -1,6 +1,7 @@
 import { Router } from './router.js'
 import { buildFileTree } from './file-tree.js'
 import { setupMobileMenu } from './mobile-menu.js'
+import { setupThemeToggle } from './theme-toggle.js'
 
 // ===== Initialize App =====
 async function init() {
@@ -24,6 +25,9 @@ async function init() {
 		// Setup mobile menu
 		const closeMenu = setupMobileMenu()
 		
+		// Setup theme toggle
+		setupThemeToggle()
+		
 		// Intercept all internal link clicks (using data-link attribute)
 		document.addEventListener('click', (e) => {
 			const link = e.target.closest('a[data-link]')
@@ -31,9 +35,6 @@ async function init() {
 				e.preventDefault()
 				const href = link.getAttribute('href')
 				router.navigate(href)
-				
-				// Close mobile menu
-				if (window.innerWidth <= 768) closeMenu()
 			}
 		})
 		
